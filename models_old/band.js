@@ -9,43 +9,41 @@ module.exports = (sequelize, DataTypes) => {
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
-     static associate({ MeetGreet, SetTime }) {
-      // meet and greets
-      Band.hasMany(MeetGreet, {
-        foreignKey: "band_id",
-        as: "meet_greets"
-      })
-
-      // set times 
-      Band.hasMany(SetTime, {
+    static associate({Meet_greet, Set_time}) {
+      // define association here
+      Band.hasMany(Meet_greet, {
+      foreignKey: 'band_id',
+      as: 'meet_greets'
+    })
+     // set times 
+     Band.hasMany(Set_time, {
         foreignKey: "band_id",
         set_times: "set_times"
       })
-    }
   }
+}
   Band.init({
     band_id: {
-      type: DataTypes.INTEGER,
-      primaryKey: true,
-      autoIncrement: true
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true
     },
     name: {
-      type: DataTypes.STRING,
-      allowNull: false
+        type: DataTypes.STRING,
+        allowNull: false
     },
-    genre:{
-      type: DataTypes.TEXT,
-      allowNull: false
+    genre: {
+        type: DataTypes.TEXT,
+        allowNull: false
     },
     available_start_time: {
-      type: DataTypes.DATE,
-      allowNull: false,
-      defaultValue: DataTypes.NOW
+        type: DataTypes.DATE,
+        allowNull: false,
+        defaultValue: DataTypes.NOW
     },
     end_time: {
-      type: DataTypes.DATE,
-      allowNull: false,
-      defaultValue: DataTypes.NOW
+        type: DataTypes.DATE,
+        allowNull: false
     }
   }, {
     sequelize,

@@ -7,6 +7,10 @@ const { Sequelize } = require("sequelize");
 require("dotenv").config();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+const db = require('./models/index.js')
+
+// Below is a great way to test for errors when making table associations
+// db.sequelize.sync()
 
 // ROOT
 app.get("/", (req, res) => {

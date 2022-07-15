@@ -1,7 +1,7 @@
-'use strict'
+'use strict';
 const {
   Model
-} = require('sequelize')
+} = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class Event extends Model {
     /**
@@ -9,24 +9,22 @@ module.exports = (sequelize, DataTypes) => {
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
-    static associate({ Stage, StageEvent, MeetGreet, SetTime }) {
-
-        console.log('IN EVENT model this is stage!!!!!!!!!', Stage)
+    static associate({ Stage, Stage_events, Meet_greet, Set_time }) {
+      // define association here
       // stages
       Event.belongsToMany(Stage, {
-        foreignKey: "event_id",
-        as: "stages",
-        through: StageEvent
+        foreignKey: 'event_id',
+        as: 'stages',
+        through: Stage_events
       })
-      
       // meet and greets 
-      Event.hasMany(MeetGreet, {
+      Event.hasMany(Meet_greet, {
         foreignKey: "event_id",
         as: "meet_greets"
       })
 
       // set times 
-      Event.hasMany(SetTime, {
+      Event.hasMany(Set_time, {
         foreignKey: "event_id",
         as: "set_times"
       })
@@ -44,24 +42,22 @@ module.exports = (sequelize, DataTypes) => {
     },
     date: {
       type: DataTypes.DATE,
-      allowNull: false,
-      defaultValue: DataTypes.NOW
+      allowNull: false
     },
     start_time: {
       type: DataTypes.DATE,
-      allowNull: false,
-      defaultValue: DataTypes.NOW
+      allowNull: false
     },
     end_time: {
       type: DataTypes.DATE,
-      allowNull: false,
-      defaultValue: DataTypes.NOW
+      allowNull: false
     }
   }, {
     sequelize,
     modelName: 'Event',
     tableName: 'events',
     timestamps: false
-  })
-  return Event
-}
+  });
+
+  return Event;
+};
